@@ -28,6 +28,8 @@ jobs:
             --exclude='_site' \
             --exclude='*.ps1' \
             --exclude='*.md' \
+            --exclude='*.txt' \
+            --exclude='*.url' \
             --exclude='.gitignore' \
             ./ _site/
 
