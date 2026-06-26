@@ -49,6 +49,14 @@
 - Netlify 네이티브 Git 연동이 남아 있으면 push마다 실패 빌드 알림 발생 가능 → Netlify에서 Unlink 권장(자동배포엔 영향 없음).
 - Gmail 수신자(팀 배포 주소) 미지정 → 초안 기본 수신자는 본인. 발송 전 변경.
 
+## 6-1. (추가) HTML 메일 템플릿 자동화
+- 첨부 디자인(상단 빨간 CTA 카드 → 중단 "이번 주 핵심" → 하단 카테고리별 기사)을 템플릿화.
+- `build-email.ps1`: `index.html`을 파싱(데이터 추출) → 승인된 HTML(이메일 표준 table+bgcolor) + 텍스트 본문 생성.
+  - Gmail이 `background`/그라데이션을 제거하므로 빨간 버튼·핵심 박스는 `bgcolor` 속성으로 구현.
+- `gmail-draft.ps1 -HtmlBody`: multipart/alternative(텍스트+HTML)로 실제 저장 초안 생성.
+- `update.ps1`이 build-email 호출 → Gmail 설정 시 무인 HTML 초안, 미설정 시 email-draft.html 미리보기 + 작성창.
+- 함정/교훈: PowerShell에서 index.html을 읽을 땐 반드시 `-Encoding UTF8` (기본 CP949가 한글·일부 `</a>`까지 손상시켜 파싱 실패의 원인이었음). 헬퍼 .ps1은 모두 UTF-8 BOM 저장.
+
 ## 6. 역할 경계 (Cowork ↔ Claude Code) — 중복 방지
 - **Cowork**: 데이터 수집(클리핑·web_search 커넥터) + 대시보드 HTML 생성(`ip-dashboard-update`). 산출물 = `NAVER WORKS/ip-trend-monitor/index.html`.
 - **Claude Code(여기)**: 배포/호스팅, git 자동배포, 로컬 자동화(스케줄러), 그리고 필요 시 Gmail 초안 생성.
