@@ -30,6 +30,7 @@ jobs:
             --exclude='*.md' \
             --exclude='*.txt' \
             --exclude='*.url' \
+            --exclude='*.dat' \
             --exclude='.gitignore' \
             ./ _site/
 
