@@ -77,48 +77,41 @@ try {
     }
     if (-not $To -or $To.Count -eq 0) { $To = @('jasonbae@com2us.com') }
 
-    $subject = "[IP 트렌드] 뉴스 모니터 대시보드 — $dateTag"
-    $body = @"
-안녕하세요,
+    # build-email.ps1 로 대시보드를 파싱해 HTML+텍스트 본문 생성(템플릿)
+    $mail = & (Join-Path $deployDir 'build-email.ps1') -DashboardPath $dest -LiveUrl $liveUrl -DateTag $dateTag
+    $subject = $mail.Subject
 
-이번 주 IP 트렌드 뉴스 모니터 대시보드가 업데이트되었습니다 (기준일: $dateTag).
-
-▶ 라이브 대시보드: $liveUrl
-
-필터·정렬이 가능한 인터랙티브 대시보드입니다. 주요 트렌드와 뉴스는 위 링크에서 바로 확인하실 수 있습니다.
-
-감사합니다.
-"@
-
-    # 항상 텍스트 산출물 남김(백업)
-    Set-Content -LiteralPath (Join-Path $deployDir 'email-draft.txt') -Value "받는사람: $($To -join ', ')`r`n제목: $subject`r`n`r`n$body" -Encoding UTF8
+    # 항상 산출물 남김(백업/미리보기)
+    Set-Content -LiteralPath (Join-Path $deployDir 'email-draft.txt')  -Value $mail.Text -Encoding UTF8
+    Set-Content -LiteralPath (Join-Path $deployDir 'email-draft.html') -Value $mail.Html -Encoding UTF8
 
     $gmailCfg    = Join-Path $deployDir 'gmail-config.dat'
     $gmailScript = Join-Path $deployDir 'gmail-draft.ps1'
 
     if ((Test-Path -LiteralPath $gmailCfg) -and (Test-Path -LiteralPath $gmailScript)) {
-        # 완전 무인: Gmail API로 실제 저장 초안 생성
+        # 완전 무인: Gmail API로 실제 저장 초안(HTML) 생성
         try {
-            & $gmailScript -To $To -Subject $subject -Body $body
-            Write-Host "[메일] Gmail 저장 초안을 생성했습니다(임시보관함 확인)." -ForegroundColor Green
+            & $gmailScript -To $To -Subject $subject -Body $mail.Text -HtmlBody $mail.Html
+            Write-Host "[메일] Gmail HTML 저장 초안을 생성했습니다(임시보관함 확인)." -ForegroundColor Green
         } catch {
             Write-Host "[메일][경고] Gmail 초안 생성 실패: $($_.Exception.Message)" -ForegroundColor Red
-            Write-Host "         email-draft.txt 로 대체 보관했습니다." -ForegroundColor Yellow
+            Write-Host "         email-draft.html / .txt 로 대체 보관했습니다." -ForegroundColor Yellow
         }
     }
     else {
-        # 대체: 작성창 딥링크 .url + (대화형) 작성창 열기
-        $su = [uri]::EscapeDataString($subject)
-        $bd = [uri]::EscapeDataString($body)
+        # 대체: HTML 미리보기 파일 + 작성창 딥링크(.url, 텍스트 본문)
+        $su  = [uri]::EscapeDataString($subject)
+        $bd  = [uri]::EscapeDataString($mail.Text)
         $toq = [uri]::EscapeDataString(($To -join ','))
         $composeUrl = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=$toq&su=$su&body=$bd"
         Set-Content -LiteralPath (Join-Path $deployDir '메일-초안-열기.url') -Value "[InternetShortcut]`r`nURL=$composeUrl" -Encoding ASCII
 
         if ($Unattended) {
-            Write-Host "[메일] 초안 준비됨 -> email-draft.txt / 메일-초안-열기.url (더블클릭 시 작성창)" -ForegroundColor Green
-            Write-Host "       완전 무인 저장-초안을 원하면 gmail-auth.ps1 을 1회 실행하세요." -ForegroundColor Gray
+            Write-Host "[메일] 초안 준비됨 -> email-draft.html(디자인 미리보기) / 메일-초안-열기.url(작성창)" -ForegroundColor Green
+            Write-Host "       완전 무인 HTML 저장-초안을 원하면 gmail-auth.ps1 을 1회 실행하세요(GMAIL-SETUP.md)." -ForegroundColor Gray
         } else {
-            Write-Host "[메일] Gmail 작성창을 엽니다 (Ctrl+S로 초안 저장 또는 발송)..." -ForegroundColor Green
+            Write-Host "[메일] HTML 미리보기(email-draft.html)를 열고, Gmail 작성창도 띄웁니다..." -ForegroundColor Green
+            Start-Process (Join-Path $deployDir 'email-draft.html')
             Start-Process $composeUrl
         }
     }
@@ -126,4 +119,5 @@ try {
 finally {
     Pop-Location
 }
+
 

@@ -4,6 +4,7 @@ node_modules/
 
 # local-only artifacts produced by update.ps1
 email-draft.txt
+email-draft.html
 *.url
 
 # Gmail credentials & local config (never commit)

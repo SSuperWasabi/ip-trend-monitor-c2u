@@ -31,6 +31,7 @@ jobs:
             --exclude='*.txt' \
             --exclude='*.url' \
             --exclude='*.dat' \
+            --exclude='email-draft.html' \
             --exclude='.gitignore' \
             ./ _site/
 
