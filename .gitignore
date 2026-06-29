@@ -2,10 +2,12 @@ node_modules/
 .netlify/
 .DS_Store
 
-# local-only artifacts produced by update.ps1
+# local-only artifacts produced by update.ps1 / watch.ps1
 email-draft.txt
 email-draft.html
 *.url
+watch.log
+watch.pid
 
 # Gmail credentials & local config (never commit)
 gmail-config.dat

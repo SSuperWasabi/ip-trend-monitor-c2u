@@ -31,6 +31,8 @@ jobs:
             --exclude='*.txt' \
             --exclude='*.url' \
             --exclude='*.dat' \
+            --exclude='*.log' \
+            --exclude='*.pid' \
             --exclude='email-draft.html' \
             --exclude='.gitignore' \
             ./ _site/
