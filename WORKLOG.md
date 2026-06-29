@@ -40,28 +40,32 @@
 - 라이브: https://ip-trend-monitor-c2u.netlify.app (현재 2026-06-26)
 - 저장소(비공개): https://github.com/SSuperWasabi/ip-trend-monitor-c2u
 - 자동배포: GitHub Actions (`.github/workflows/deploy.yml`)
-- 스케줄 작업: "IP-Trend-Monitor AutoDeploy" (매일 09:30, 무인)
+- 자동 트리거: **파일 감시** — `watch.ps1`(Startup 등록, 로그온 상주)
 - 스크립트/문서:
+  - `watch.ps1` — index.html 변경 감시 → update.ps1 실행(파일 감시 트리거)
+  - `register-task.ps1` — watch.ps1 시작프로그램 등록/해제 (`-Remove`)
   - `update.ps1` — 감지→복사→커밋→push→메일 본문 생성 (`-Source`, `-To`, `-Unattended`)
   - `build-email.ps1` — 대시보드 파싱 → 템플릿 HTML+텍스트 메일 본문
   - `gmail-draft.ps1` — Gmail API 저장 초안(HTML/multipart)
   - `gmail-auth.ps1` — Gmail OAuth 1회 인증
-  - `register-task.ps1` — 스케줄 작업 등록/해제 (`-At`, `-Remove`)
   - `GMAIL-SETUP.md` — Gmail 무인 초안 설정 가이드
   - `netlify.toml`, `index.html`, `DEPLOY.md`, `README-FOR-CLAUDE-CODE.md`
-- 로컬 전용(gitignore + 게시 제외): `gmail-config.dat`, `mail-to.txt`, `email-draft.txt`, `email-draft.html`, `*.url`
+- 로컬 전용(gitignore + 게시 제외): `gmail-config.dat`, `mail-to.txt`, `email-draft.txt`, `email-draft.html`, `*.url`, `watch.log`, `watch.pid`
 
-## 5. 자동화 파이프라인 (완성)
+## 5. 자동화 파이프라인 (완성 · 파일 감시 방식)
 ```
 Cowork → 배포폴더 index.html 직접 저장
-   ↓ (매일 09:30 작업 스케줄러, 변경 있을 때만 / 무인·allow 없음)
+   ↓ (watch.ps1 의 FileSystemWatcher 가 index.html 변경 즉시 감지 / 시간 기준 아님 / 무인·allow 없음)
 update.ps1 : 감지 → git commit → push → build-email로 메일 본문 생성
    ↓ (push 트리거)
 GitHub Actions → netlify deploy --prod → 라이브 갱신
    ↓
 메일 초안: Gmail OAuth 설정 시 무인 저장초안 / 미설정 시 email-draft.html + 작성창
 ```
-- **무인 검증 완료**: 작업 스케줄러가 사람 개입 없이 `git push`까지 성공(저장된 자격증명 사용, 프롬프트 없음).
+- **트리거: 파일 감시(watch.ps1)** — 기존 시간 기준(매일 09:30 작업 스케줄러)에서 전환.
+  - `watch.ps1`: index.html 변경 감지(디바운스 3s) → update.ps1 별도 프로세스 실행. 단일 인스턴스(뮤텍스+watch.pid), 시작 시 catch-up 1회.
+  - 자동 시작: **시작프로그램(Startup) 바로가기**로 로그온 시 상주(`register-task.ps1`). ※ 이 PC 정책상 작업 스케줄러 'AtLogon' 트리거는 권한 거부되어 Startup 방식 사용.
+- **무인 검증 완료**: index.html을 바꾸기만 해도 watcher가 사람/Claude/allow 개입 없이 commit→push→배포까지 수행(마커 추가/원복 2회 + 6/29 실배포로 확인).
 - 메일 운영 방침: **초안 자동 작성 → 사용자가 확인 후 직접 발송** (수신자만 팀 주소로 변경).
 
 ## 6. 미해결 / 선택 과제
