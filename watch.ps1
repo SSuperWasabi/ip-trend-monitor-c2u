@@ -1,9 +1,9 @@
 ﻿<#
   watch.ps1  —  index.html 파일 변경 감시 → 즉시 자동 배포 (시간 기준 아님)
 
-  배포 폴더의 index.html 이 바뀌면(=Cowork가 새 대시보드 저장) update.ps1 -Unattended 를 실행합니다.
-  보통 '시작프로그램(Startup)' 등록으로 로그온 시 자동 시작합니다(register-task.ps1). 로그아웃 동안의
-  변경은 다음 시작 시 catch-up 으로 한 번 반영합니다.
+  Cowork가 배포용 복사본을 저장하는 지정 경로(소스)의 index.html 이 바뀌면 update.ps1 -Unattended 를
+  실행합니다(소스→배포폴더 복사 후 커밋·푸시·배포). 보통 '시작프로그램(Startup)' 등록으로 로그온 시
+  자동 시작합니다(register-task.ps1). 로그아웃 동안의 변경은 다음 시작 시 catch-up 으로 한 번 반영합니다.
 
   수동 실행(테스트): powershell -ExecutionPolicy Bypass -File .\watch.ps1
 #>
@@ -41,16 +41,26 @@ function Invoke-Update($reason) {
     Write-Log "update.ps1 종료 (exit=$code)"
 }
 
-Write-Log "watcher 시작 (감시: $deployDir\$target)"
+# 감시 대상: Cowork가 배포용 복사본을 저장하는 지정 경로(소스). 없으면 배포 폴더로 폴백.
+$sourceDir = "C:\Users\jasonbae\Downloads\NAVER WORKS\ip-trend-monitor"
+$watchDirs = @($sourceDir, $deployDir) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+
+Write-Log ("watcher 시작 (감시 대상: " + ($watchDirs -join ' , ') + " \ $target)")
 # 시작 시 1회 catch-up (감시가 꺼져 있던 동안의 변경 반영; 변경 없으면 update.ps1이 알아서 건너뜀)
 try { Invoke-Update "startup catch-up" } catch { Write-Log "catch-up 오류: $($_.Exception.Message)" }
 
-$fsw = New-Object System.IO.FileSystemWatcher $deployDir, $target
-$fsw.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor [System.IO.NotifyFilters]::Size -bor [System.IO.NotifyFilters]::FileName
-$fsw.EnableRaisingEvents = $true
-Register-ObjectEvent $fsw Changed -SourceIdentifier IdxChg | Out-Null
-Register-ObjectEvent $fsw Created -SourceIdentifier IdxNew | Out-Null
-Register-ObjectEvent $fsw Renamed -SourceIdentifier IdxRen | Out-Null
+$watchers = @()
+$idx = 0
+foreach ($wd in $watchDirs) {
+    $fsw = New-Object System.IO.FileSystemWatcher $wd, $target
+    $fsw.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor [System.IO.NotifyFilters]::Size -bor [System.IO.NotifyFilters]::FileName
+    $fsw.EnableRaisingEvents = $true
+    Register-ObjectEvent $fsw Changed -SourceIdentifier "IdxChg$idx" | Out-Null
+    Register-ObjectEvent $fsw Created -SourceIdentifier "IdxNew$idx" | Out-Null
+    Register-ObjectEvent $fsw Renamed -SourceIdentifier "IdxRen$idx" | Out-Null
+    $watchers += $fsw
+    $idx++
+}
 
 try {
     while ($true) {
@@ -64,10 +74,12 @@ try {
 }
 finally {
     Get-EventSubscriber | Unregister-Event -ErrorAction SilentlyContinue
-    $fsw.Dispose()
+    foreach ($w in $watchers) { $w.Dispose() }
     Remove-Item -LiteralPath $pidFile -Force -ErrorAction SilentlyContinue
     Write-Log "watcher 종료"
 }
+
+
 
 
 
