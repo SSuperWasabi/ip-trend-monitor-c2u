@@ -22,10 +22,15 @@ param(
     [switch]$Unattended
 )
 
-$ErrorActionPreference = 'Stop'
+# git이 stderr로 내는 정상 경고(LF→CRLF 등)를 치명적 오류로 처리하지 않도록 Continue 사용.
+# (분기/배포 판단은 git status·exit code로 명시 확인하므로 Stop 없이도 안전)
+$ErrorActionPreference = 'Continue'
 $deployDir = $PSScriptRoot
 $dest      = Join-Path $deployDir 'index.html'
 $liveUrl   = 'https://ip-trend-monitor-c2u.netlify.app'
+
+# 이 저장소에서 CRLF 자동변환/경고 비활성화(파일은 있는 그대로 다룸)
+git -C $deployDir config core.autocrlf false 2>$null | Out-Null
 
 Push-Location $deployDir
 try {
@@ -119,5 +124,6 @@ try {
 finally {
     Pop-Location
 }
+
 
 
