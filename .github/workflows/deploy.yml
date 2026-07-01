@@ -42,7 +42,13 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
+          # 저장소(.git) 밖에서 배포해 netlify CLI가 git 커밋 메타데이터(작성자/co-author)를
+          # Netlify에 보내지 않게 함 → 무료 플랜 'Git contributor(1명)' 검사에 걸리지 않음(순수 업로드 배포).
+          rm -rf "$RUNNER_TEMP/nfsite"
+          cp -r _site "$RUNNER_TEMP/nfsite"
+          cd "$RUNNER_TEMP/nfsite"
           npx -y netlify-cli@latest deploy \
             --prod \
-            --dir=_site \
-            --message="GitHub Actions: ${GITHUB_SHA::7}"
+            --dir=. \
+            --site="$NETLIFY_SITE_ID" \
+            --message="GitHub Actions ${GITHUB_SHA}"
