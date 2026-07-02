@@ -9,7 +9,7 @@
 #>
 param(
     [string]$DashboardPath = (Join-Path $PSScriptRoot 'index.html'),
-    [string]$LiveUrl       = 'https://ip-trend-monitor-c2u.netlify.app',
+    [string]$LiveUrl       = 'https://ssuperwasabi.github.io/ip-trend-monitor-c2u/',
     [string]$DateTag       = ''
 )
 $ErrorActionPreference = 'Stop'
@@ -171,6 +171,7 @@ $textBody = $tb.ToString()
     Html    = $htmlBody
     Text    = $textBody
 }
+
 
 
 

@@ -1,25 +1,31 @@
-name: Deploy to Netlify
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-# Avoid overlapping deploys when several pushes land quickly.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 concurrency:
-  group: netlify-deploy
+  group: pages
   cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Prepare publish directory
-        # Publish only the static site, excluding repo metadata so files like
-        # .git/ are never uploaded to the public CDN.
+        # 사이트에는 index.html 만 게시 (스크립트/문서/메타/설정 제외)
         run: |
           mkdir -p _site
           rsync -a \
@@ -34,21 +40,18 @@ jobs:
             --exclude='*.log' \
             --exclude='*.pid' \
             --exclude='email-draft.html' \
+            --exclude='netlify.toml' \
             --exclude='.gitignore' \
             ./ _site/
 
-      - name: Deploy to Netlify (production)
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          # 저장소(.git) 밖에서 배포해 netlify CLI가 git 커밋 메타데이터(작성자/co-author)를
-          # Netlify에 보내지 않게 함 → 무료 플랜 'Git contributor(1명)' 검사에 걸리지 않음(순수 업로드 배포).
-          rm -rf "$RUNNER_TEMP/nfsite"
-          cp -r _site "$RUNNER_TEMP/nfsite"
-          cd "$RUNNER_TEMP/nfsite"
-          npx -y netlify-cli@latest deploy \
-            --prod \
-            --dir=. \
-            --site="$NETLIFY_SITE_ID" \
-            --message="GitHub Actions ${GITHUB_SHA}"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

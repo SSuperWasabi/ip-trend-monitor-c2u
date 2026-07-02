@@ -14,7 +14,7 @@
       powershell -ExecutionPolicy Bypass -File .\update.ps1
       powershell -ExecutionPolicy Bypass -File .\update.ps1 -Source "C:\다른\경로\index.html"
       powershell -ExecutionPolicy Bypass -File .\update.ps1 -Unattended        # 스케줄러용(브라우저 안 띄움)
-      powershell -ExecutionPolicy Bypass -File .\update.ps1 -To "team@com2us.com","me@com2us.com"
+      powershell -ExecutionPolicy Bypass -File .\update.ps1 -To "team@example.com","me@example.com"
 #>
 param(
     [string]$Source = "C:\Users\jasonbae\Downloads\NAVER WORKS\ip-trend-monitor\index.html",
@@ -27,7 +27,7 @@ param(
 $ErrorActionPreference = 'Continue'
 $deployDir = $PSScriptRoot
 $dest      = Join-Path $deployDir 'index.html'
-$liveUrl   = 'https://ip-trend-monitor-c2u.netlify.app'
+$liveUrl   = 'https://ssuperwasabi.github.io/ip-trend-monitor-c2u/'
 
 # 이 저장소에서 CRLF 자동변환/경고 비활성화(파일은 있는 그대로 다룸)
 git -C $deployDir config core.autocrlf false 2>$null | Out-Null
@@ -80,7 +80,7 @@ try {
             $To = (Get-Content -LiteralPath $mailToFile -Raw) -split '[\r\n,;]+' | Where-Object { $_ -match '@' }
         }
     }
-    if (-not $To -or $To.Count -eq 0) { $To = @('jasonbae@com2us.com') }
+    if (-not $To -or $To.Count -eq 0) { $To = @() }  # 개인 이메일은 gitignore된 mail-to.txt 에서만 지정(공개 저장소에 미포함)
 
     # build-email.ps1 로 대시보드를 파싱해 HTML+텍스트 본문 생성(템플릿)
     $mail = & (Join-Path $deployDir 'build-email.ps1') -DashboardPath $dest -LiveUrl $liveUrl -DateTag $dateTag
@@ -124,6 +124,8 @@ try {
 finally {
     Pop-Location
 }
+
+
 
 
 

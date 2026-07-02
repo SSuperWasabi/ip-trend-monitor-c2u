@@ -11,7 +11,7 @@
 5. (확장) 주간 갱신 완전 자동화: 감지 → 배포 → 메일 초안(첨부 디자인 템플릿)
 
 ## 2. 환경 / 계정
-- Netlify 계정: jasonbae@com2us.com (Google 로그인) — MCP로 인증
+- Netlify 계정: (사용자 Google 계정) — MCP로 인증
 - GitHub 계정: **SSuperWasabi** (id 88869192) — gh device 인증
 - 로컬: Windows 11, PowerShell 5.1 / git-bash, Node v24
 - 최초 상태: gh CLI·Netlify CLI·토큰·git 자격증명 전무

@@ -6,7 +6,7 @@
   -HtmlBody 지정 시 multipart/alternative(텍스트+HTML)로 보냅니다.
 
   사용법:
-      powershell -ExecutionPolicy Bypass -File .\gmail-draft.ps1 -To "team@com2us.com" -Subject "제목" -Body "텍스트" -HtmlBody "<html>...</html>"
+      powershell -ExecutionPolicy Bypass -File .\gmail-draft.ps1 -To "team@example.com" -Subject "제목" -Body "텍스트" -HtmlBody "<html>...</html>"
 #>
 param(
     [Parameter(Mandatory)][string[]]$To,
@@ -72,4 +72,5 @@ $draft = Invoke-RestMethod -Method Post `
     -Body $payload
 
 Write-Host "[Gmail] 저장 초안 생성 완료 (draftId: $($draft.id))" -ForegroundColor Green
+
 

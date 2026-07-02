@@ -12,7 +12,7 @@
 ## 1. 최초 1회 세팅 (Claude Code 터미널)
 ```bash
 npm i -g netlify-cli        # 이미 있으면 생략
-netlify login               # 브라우저로 Netlify 로그인 (jasonbae@com2us.com)
+netlify login               # 브라우저로 Netlify 로그인
 ```
 (또는 토큰 사용: Netlify > User settings > Applications > Personal access token 발급 후
  `export NETLIFY_AUTH_TOKEN=xxxxx`)
