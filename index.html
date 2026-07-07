@@ -3,16 +3,20 @@
 {
   "name": "Ip Trend News Monitor",
   "schemaVersion": 1,
-  "description": "IP사업 관점 뉴스 모니터링, 컴투스·커머스굿즈·팝업오프라인·트랜스미디어·경쟁사·산업정책 6개 카테고리 분류. 일일 클리핑 + web_search 보강. 최근 2주 이내 기사만 수록. 기사 제목 클릭 시 원문 기사로 연결. 카테고리 필터 지원.",
-  "mcpTools": ["mcp__f071d9a4-1db0-4a72-bcdc-0184fcdfef74__search_threads"],
-  "mcpServerNames": ["Gmail"]
+  "description": "IP사업 관점 뉴스 모니터링, 컴투스·커머스굿즈·팝업오프라인·트랜스미디어·경쟁사·산업정책 6개 카테고리 분류. hiyeon@com2us.com 일일 클리핑 + web_search 보강. 기사 제목 클릭 시 원문 기사로 연결. 카테고리 필터 지원.",
+  "mcpTools": [
+    "mcp__f071d9a4-1db0-4a72-bcdc-0184fcdfef74__search_threads"
+  ],
+  "mcpServerNames": [
+    "Gmail"
+  ]
 }
 </script>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IP Trend News Monitor · 2026-07-01</title>
+  <title>IP Trend News Monitor · 2026-07-07</title>
   <style>
     @import url('https://fonts.bunny.net/css?family=pretendard:300,400,500,600,700,800&display=swap');
     *, *::before, *::after { box-sizing: border-box; }
@@ -23,6 +27,7 @@
     .news-item:hover { background:#fafbff; }
     .news-item.hidden { display:none; }
     .cat-chip { display:inline-flex; align-items:center; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:10px; white-space:nowrap; height:fit-content; flex-shrink:0; }
+    /* 뉴스 제목 링크, 원문 기사로 연결 */
     .news-title a { color:#0f172a; text-decoration:none; font-size:13px; font-weight:700; line-height:1.4; border-bottom:1px solid transparent; transition:color .15s,border-color .15s; display:inline; }
     .news-title a:hover { color:#e60012; border-bottom-color:#e60012; }
     .news-title a::after { content:' ↗'; font-size:10px; opacity:.45; }
@@ -38,222 +43,351 @@
 <body>
 <div class="page-wrapper">
 
+<!-- 헤더 -->
 <header class="full-span" style="background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:clamp(14px,2.5%,20px) clamp(16px,4%,28px);display:flex;justify-content:space-between;align-items:center;">
   <div>
     <div style="font-size:11px;opacity:.65;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">COM2US · IP BUSINESS TEAM</div>
     <h1 style="margin:0;font-size:clamp(17px,2.3vw,21px);font-weight:700;">IP Trend News Monitor</h1>
-    <div style="font-size:12px;opacity:.75;margin-top:3px;">2026년 7월 1일 (수) · 출처: hiyeon 「6/30 클리핑」(6/29 기사)</div>
+    <div style="font-size:12px;opacity:.75;margin-top:3px;">2026년 7월 7일 (화) · 출처: hiyeon@com2us.com 「2026년 7월 6일 컴투스 뉴스 모니터링」 + web_search 보강</div>
   </div>
   <div style="text-align:right;font-size:11.5px;opacity:.8;">
     <div style="font-weight:600;">Jason Bae</div>
     <div>IP Business Team Lead</div>
-    <div style="margin-top:4px;font-size:10.5px;">업데이트: 2026-07-01</div>
+    <div style="margin-top:4px;font-size:10.5px;">업데이트: 2026-07-07</div>
   </div>
 </header>
 
-<div class="full-span" style="background:#ecfdf5;border-bottom:1px solid #a7f3d0;padding:6px clamp(16px,4%,28px);font-size:11px;color:#065f46;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-  <span>🕒</span><span><strong>최근 2주 이내(2026-06-17 이후) 기사만 수록</strong> · 기사 제목 클릭 시 원문 페이지로 연결. 링크 만료 시 우측 <strong>🔍 네이버</strong> 백업 검색.</span>
+<!-- 안내 바 -->
+<div class="full-span" style="background:#ecfdf5;border-bottom:1px solid #a7f3d0;padding:6px clamp(16px,4%,28px);font-size:11px;color:#065f46;display:flex;align-items:center;gap:6px;">
+  <span>✅</span><span>🕒 <strong>최근 2주 이내(2026-06-23 이후) 기사만 수록.</strong> 기사 제목 클릭 시 <strong>원문 기사 페이지</strong>로 연결됩니다. 링크가 만료된 경우 우측 <strong>🔍 네이버</strong> 백업 검색을 이용하세요.</span>
 </div>
 
+<!-- KPI 카드 + 필터 -->
 <div class="full-span" style="padding:clamp(10px,2%,14px) clamp(16px,4%,28px) 0;">
   <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
-    <div class="kpi-card" style="flex:1;min-width:80px;"><div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#0f172a;">16</div><div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">총 뉴스</div></div>
-    <div class="kpi-card" style="flex:1;min-width:80px;"><div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#e60012;">2</div><div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">컴투스</div></div>
-    <div class="kpi-card" style="flex:1;min-width:80px;"><div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#d97706;">2</div><div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">커머스·굿즈</div></div>
-    <div class="kpi-card" style="flex:1;min-width:80px;"><div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#16a34a;">0</div><div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">팝업·오프라인</div></div>
-    <div class="kpi-card" style="flex:1;min-width:80px;"><div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#4f46e5;">0</div><div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">트랜스미디어</div></div>
+    <div class="kpi-card" style="flex:1;min-width:80px;">
+      <div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#0f172a;">16</div>
+      <div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">총 뉴스</div>
+    </div>
+    <div class="kpi-card" style="flex:1;min-width:80px;">
+      <div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#e60012;">7</div>
+      <div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">컴투스</div>
+    </div>
+    <div class="kpi-card" style="flex:1;min-width:80px;">
+      <div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#d97706;">2</div>
+      <div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">커머스·굿즈</div>
+    </div>
+    <div class="kpi-card" style="flex:1;min-width:80px;">
+      <div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#16a34a;">2</div>
+      <div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">팝업·오프라인</div>
+    </div>
+    <div class="kpi-card" style="flex:1;min-width:80px;">
+      <div style="font-size:clamp(22px,3.5vw,28px);font-weight:800;color:#4f46e5;">0</div>
+      <div style="font-size:10.5px;color:#64748b;font-weight:600;margin-top:2px;">트랜스미디어</div>
+    </div>
   </div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;">
     <button class="filter-btn active" onclick="filterNews('all',this)">전체(16)</button>
-    <button class="filter-btn" onclick="filterNews('c2u',this)">컴투스(2)</button>
+    <button class="filter-btn" onclick="filterNews('c2u',this)">컴투스(7)</button>
     <button class="filter-btn" onclick="filterNews('commerce',this)">커머스·굿즈(2)</button>
-    <button class="filter-btn" onclick="filterNews('popup',this)">팝업·오프라인(0)</button>
+    <button class="filter-btn" onclick="filterNews('popup',this)">팝업·오프라인(2)</button>
     <button class="filter-btn" onclick="filterNews('transmedia',this)">트랜스미디어(0)</button>
-    <button class="filter-btn" onclick="filterNews('competitor',this)">경쟁사(8)</button>
-    <button class="filter-btn" onclick="filterNews('industry',this)">산업·정책(4)</button>
+    <button class="filter-btn" onclick="filterNews('competitor',this)">경쟁사(3)</button>
+    <button class="filter-btn" onclick="filterNews('industry',this)">산업·정책(2)</button>
   </div>
 </div>
 
+<!-- 메인 컨텐츠 -->
 <main style="padding:clamp(10px,2%,14px) clamp(16px,4%,28px);overflow:auto;">
 
+  <!-- AI 트렌드 브리프 -->
   <div style="background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;border-radius:12px;padding:14px 18px;margin-bottom:14px;">
-    <div style="font-size:11px;opacity:.7;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">🤖 AI Trend Brief · 6/30 클리핑(6/29자 기사) 요약</div>
+    <div style="font-size:11px;opacity:.7;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">🤖 AI Trend Brief · 7/6 클리핑(7/3~7/5 기사) + 최근 2주 web_search 요약</div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <div style="font-size:12px;line-height:1.5;">🏆 <strong>컴투스 '서머너즈 워 × 장송의 프리렌' 대형 판타지 IP 컬래버</strong> — 글로벌 IP×IP 협업 커머스 확장</div>
-      <div style="font-size:12px;line-height:1.5;">🎮 <strong>컴투스 '제우스: 오만의 신' 고퀄 비주얼 자신감</strong>(7/1 사전예약) — 신작 IP 본격 시동</div>
-      <div style="font-size:12px;line-height:1.5;">🎨 <strong>넥슨게임즈 블루 아카이브 IP '공예 창작 협업' · 라인게임즈 '엠버 앤 블레이드' GPU 에디션</strong> — IP 콜라보 굿즈·제품 확산</div>
-      <div style="font-size:12px;line-height:1.5;">🏭 <strong>게임스컴 2026(8월)·하반기 MMORPG 예열·게임텔 단속</strong> — 산업/정책 동향</div>
+      <div style="font-size:12px;line-height:1.5;">🏆 <strong>서머너즈워 콜라보 모멘텀</strong>, 협업 전략을 조명한 기획기사에 이어 '장송의 프리렌' 컬래버(8/31까지) 진행. 자사 IP 콜라보를 굿즈·프로모션으로 연결할 적기</div>
+      <div style="font-size:12px;line-height:1.5;">🧸 <strong>게임 IP 굿즈·컬렉션 상품화 확산</strong>, 엔씨 코믹마켓 공식 아트북 첫 공개, 라이엇 T1 우승 컬렉션 출시. IP 팬덤의 지불의사를 겨냥한 한정판 MD 경쟁 가속</div>
+      <div style="font-size:12px;line-height:1.5;">🏬 <strong>온·오프라인 팬덤 접점 확대</strong>, 스마일게이트가 북미 애니메 엑스포 부스와 국내 마리오아울렛 상설형 팝업을 동시 전개. 복합몰 IP 존 입점 모델 부상</div>
+      <div style="font-size:12px;line-height:1.5;">⚖️ <strong>소니 디스크리스 전환</strong>, '게임 소유 시대 종료' 논쟁 점화. 디지털 유통·소비자 권리 이슈가 글로벌 커머스 약관에 미칠 영향 모니터링 필요</div>
     </div>
   </div>
 
+  <!-- 뉴스 목록 -->
   <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;" id="news-list">
+    <!--
+      ┌─ data-cat 뱃지 마크업 6종 (복사용 레퍼런스, 렌더링 안 됨) ─────────────
+      컴투스       : <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>      data-cat="c2u"
+      커머스·굿즈   : <span class="cat-chip" style="background:#fef3c7;color:#92400e;">커머스·굿즈</span>   data-cat="commerce"
+      팝업·오프라인 : <span class="cat-chip" style="background:#dcfce7;color:#166534;">팝업·오프라인</span> data-cat="popup"
+      트랜스미디어  : <span class="cat-chip" style="background:#e0e7ff;color:#3730a3;">트랜스미디어</span>  data-cat="transmedia"
+      경쟁사       : <span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span>      data-cat="competitor"
+      산업·정책    : <span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span>    data-cat="industry"
+      분류 우선순위: c2u > commerce > popup > transmedia > competitor > industry (자사는 테마 불문 c2u. SKILL.md "뉴스 분류 규칙" 참조)
+      └──────────────────────────────────────────────────────────────
+    -->
 
-    <!-- 컴투스 (2) -->
-    <div class="news-item" data-cat="c2u" data-q="컴투스 서머너즈 워 장송의 프리렌 협업 판타지 IP 컬래버">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.gamevu.co.kr/news/articleView.html?idxno=59025" target="_blank" rel="noopener">컴투스 '서머너즈 워 X 장송의 프리렌' 협업, 대형 판타지 IP 컬래버</a></div>
-        <div class="src-line"><span>게임뷰 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">자사 핵심 IP × 글로벌 인기 애니 IP 컬래버. IP×IP 협업 커머스·콘텐츠 확장 모델 — 커머스 기획 연계.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="c2u" data-q="컴투스 제우스 오만의 신 고퀄리티 비주얼 7월 1일 사전예약">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span><div style="flex:1;">
-        <div class="news-title"><a href="http://www.gamtoon.com/new/gn/hotnews/view.gam?num=149218" target="_blank" rel="noopener">[게임 만평] 컴투스 '제우스: 오만의 신', '고퀄리티 비주얼' 자신감</a></div>
-        <div class="src-line"><span>겜툰 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">자사 신작 기대감(7/1 사전예약). 제우스 IP 커머스·상품화 기획 연계 — 출시 마케팅 타임라인 점검.</div>
-      </div></div>
-    </div>
-
-    <!-- 커머스·굿즈 (2) -->
-    <div class="news-item" data-cat="commerce" data-q="넥슨게임즈 블루 아카이브 IP 공예 창작 협업">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#fef3c7;color:#92400e;">커머스·굿즈</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.dt.co.kr/article/12069967" target="_blank" rel="noopener">넥슨게임즈, 블루 아카이브 IP로 공예 창작 협업 나선다</a></div>
-        <div class="src-line"><span>디지털타임스 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">게임 IP × 공예 크래프트 협업 상품화. 프리미엄 IP 굿즈·공예 커머스 벤치마크.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="commerce" data-q="라인게임즈 에이수스 엠버 앤 블레이드 에디션 그래픽카드">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#fef3c7;color:#92400e;">커머스·굿즈</span><div style="flex:1;">
-        <div class="news-title"><a href="http://www.gameabout.com/news/articleView.html?idxno=98995" target="_blank" rel="noopener">라인게임즈, 에이수스 코리아와 '엠버 앤 블레이드' 에디션 그래픽카드</a></div>
-        <div class="src-line"><span>게임어바웃 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">게임 IP × 하드웨어 콜라보 에디션 제품. IP 라이선스 제품화·리테일 협업 사례.</div>
-      </div></div>
+    <!-- 1 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스 서머너즈워 협업 콜라보">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.ddaily.co.kr/page/view/2026070315231769210" target="_blank" rel="noopener">격투 액션부터 고전 소설까지…'서머너즈워' 협업이 통하는 이유</a></div>
+          <div class="src-line"><span>디지털데일리 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">서머너즈워 IP 콜라보 전략을 조명한 기획기사. 자사 협업 노하우가 외부에서 검증받는 시점, 콜라보 굿즈·커머스 연계 확장의 근거 자료.</div>
+        </div>
+      </div>
     </div>
 
-    <!-- 경쟁사 (8) -->
-    <div class="news-item" data-cat="competitor" data-q="넥슨 NYPC 마스터 트랙 온라인 예선">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.inews24.com/view/1980540" target="_blank" rel="noopener">넥슨, 'NYPC' 마스터 트랙 온라인 예선 29일부터 시작</a></div>
-        <div class="src-line"><span>아이뉴스24 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">청소년 프로그래밍 대회(CSR·인재). 커뮤니티·브랜드 활동 참고.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="넥슨 서든어택 디렉터 쇼케이스 2026 시즌3 패러독스">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.khgames.co.kr/news/articleView.html?idxno=305863" target="_blank" rel="noopener">넥슨, 서든어택 디렉터 쇼케이스 개최…2026 시즌3 '패러독스' 공개</a></div>
-        <div class="src-line"><span>경향게임스 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">라이브 서비스 IP 시즌 업데이트. 장수 IP 운영 벤치마크.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="크래프톤 ESG 보고서 책임 있는 AI 퍼블리싱">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.etnews.com/20260629000441" target="_blank" rel="noopener">크래프톤, ESG 보고서 발간…'책임 있는 AI'·'신뢰할 수 있는 퍼블리싱'</a></div>
-        <div class="src-line"><span>전자신문 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">대형사 ESG·AI 거버넌스. 지속가능경영 동향 참고.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="위메이드 지속가능경영보고서 게임 블록체인 ESG">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.mt.co.kr/tech/2026/06/29/2026062915484445317" target="_blank" rel="noopener">위메이드, 지속가능경영보고서 발간…게임·블록체인 특화 ESG 강화</a></div>
-        <div class="src-line"><span>머니투데이 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">블록체인·ESG 전략. 디지털 자산·거버넌스 동향.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="데브시스터즈 쿠키런 킹덤 태국 애플 게임 매출 1위">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.todaymild.com/news/articleView.html?idxno=34945" target="_blank" rel="noopener">데브시스터즈 '쿠키런 킹덤', 해외 오픈 3일 만에 태국 애플 매출 1위</a></div>
-        <div class="src-line"><span>마일드경제 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">글로벌 IP 흥행(태국 1위). 캐릭터 IP 글로벌 확장 사례.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="데브시스터즈 방치형 신작 쿠키런 크럼블 사전 등록">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.ipnn.co.kr/news/articleView.html?idxno=416550" target="_blank" rel="noopener">데브시스터즈, 방치형 신작 '쿠키런: 크럼블' 사전 등록 개시</a></div>
-        <div class="src-line"><span>PNN · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">캐릭터 IP 신작 확장. IP 프랜차이즈화 전략 참고.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="스마일게이트 개발자 커뮤니티 해커톤 개최">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.kmib.co.kr/article/view.asp?arcid=0030038321&code=61151111&sid1=eco&sid2=0012" target="_blank" rel="noopener">스마일게이트, 개발자 커뮤니티 해커톤 개최</a></div>
-        <div class="src-line"><span>국민일보 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">개발자 생태계·인재 활동. 커뮤니티 마케팅 참고.</div>
-      </div></div>
-    </div>
-    <div class="news-item" data-cat="competitor" data-q="조이시티 프리스타일 IP 강화 신작 리마스터">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span><div style="flex:1;">
-        <div class="news-title"><a href="https://game.mk.co.kr/news/all/12084340" target="_blank" rel="noopener">조이시티, '프리스타일' IP 강화…신작에 리마스터까지 출격 예고</a></div>
-        <div class="src-line"><span>매경게임진 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">레거시 IP 리마스터·확장. IP 재활성화 전략 벤치마크.</div>
-      </div></div>
+    <!-- 2 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스 서머너즈워 장송의 프리렌 컬래버레이션">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.fintechtimes.co.kr/news/article.html?no=57052" target="_blank" rel="noopener">컴투스, '서머너즈 워'와 TV 애니메이션 '장송의 프리렌' 컬래버레이션 업데이트 실시</a></div>
+          <div class="src-line"><span>핀테크경제신문 · 2026-06-30</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">프리렌 등 캐릭터 5종 인게임 등장, 8/31까지 이벤트. 인기 애니 IP 컬래버 기간 내 굿즈·프로모션 연계 기획 검토 적기.</div>
+        </div>
+      </div>
     </div>
 
-    <!-- 산업·정책 (4) -->
-    <div class="news-item" data-cat="industry" data-q="게임사 하반기 신작 MMORPG 예열">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span><div style="flex:1;">
-        <div class="news-title"><a href="https://sports.donga.com/sports/article/all/20260629/134200759/1" target="_blank" rel="noopener">게임사, 하반기 공략 시동…신작 MMORPG 예열</a></div>
-        <div class="src-line"><span>스포츠동아 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">하반기 대작 경쟁 예열. 상품화·마케팅 타이밍 점검.</div>
-      </div></div>
+    <!-- 3 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스 ESG 보고서 발간">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.inews24.com/view/1982171" target="_blank" rel="noopener">컴투스, 2026 두 번째 ESG 보고서 발간…'연결 통한 성장'</a></div>
+          <div class="src-line"><span>아이뉴스24 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">자사 ESG 경영 공식화. 상품 제조·물류 파트너 선정, 친환경 패키징 등 커머스 밸류체인 ESG 기준 정합성 점검 참고.</div>
+        </div>
+      </div>
     </div>
-    <div class="news-item" data-cat="industry" data-q="한국게임개발자협회 게임사 프로젝트 현장교육 참여기업 모집">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span><div style="flex:1;">
-        <div class="news-title"><a href="https://gamefocus.co.kr/detail.php?number=177092" target="_blank" rel="noopener">한국게임개발자협회 '게임사 프로젝트 현장교육 참여기업 모집'</a></div>
-        <div class="src-line"><span>게임포커스 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">인재 양성·산업 지원 사업. 협회·정부 프로그램 동향.</div>
-      </div></div>
+
+    <!-- 4 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스 제우스 오만의 신 MMORPG">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.gamevu.co.kr/news/articleView.html?idxno=59128" target="_blank" rel="noopener">컴투스 '제우스: 오만의 신', "경쟁 MMORPG의 새로운 해법 제시"</a></div>
+          <div class="src-line"><span>게임뷰 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">자사 대작 신규 IP 사전예약 국면. 출시 전 세계관·아트 자산 기반 굿즈/프로모션 선행 기획 여지 점검.</div>
+        </div>
+      </div>
     </div>
-    <div class="news-item" data-cat="industry" data-q="게임스컴 2026 세계 최대 게임쇼 8월 개최">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span><div style="flex:1;">
-        <div class="news-title"><a href="https://zdnet.co.kr/view/?no=20260629105015" target="_blank" rel="noopener">8월 개최 앞둔 '게임스컴 2026', 세계 최대 게임쇼 위상 굳힌다</a></div>
-        <div class="src-line"><span>지디넷코리아 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">글로벌 게임쇼(8월). 해외 IP·커머스 진출 거점 모니터링.</div>
-      </div></div>
+
+    <!-- 5 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스 야구 게임 누적 매출 1조">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.sisaweek.com/news/articleView.html?idxno=236519" target="_blank" rel="noopener">컴투스, 야구 게임 누적 매출 1조원… "정밀 구현 투자 아끼지 않는다"</a></div>
+          <div class="src-line"><span>시사위크 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">야구 게임 라인업 누적 매출 1조원. 스포츠 IP 팬덤과 MLB 라이선스 기반 상품화(응원굿즈·컬렉터블) 잠재력 재확인.</div>
+        </div>
+      </div>
     </div>
-    <div class="news-item" data-cat="industry" data-q="문체부 게임위 숙박업소 게임텔 무등록 영업 단속">
-      <div style="display:flex;gap:10px;"><span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span><div style="flex:1;">
-        <div class="news-title"><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=679323" target="_blank" rel="noopener">문체부·게임위, 숙박업소 내 '게임텔' 무등록 영업 단속 나선다</a></div>
-        <div class="src-line"><span>디지털투데이 · 2026-06-29</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
-        <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">규제·단속 동향. 오프라인 게임 사업 규제 환경 참고.</div>
-      </div></div>
+
+    <!-- 6 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="컴투스홀딩스 스타 세일러">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.asiaa.co.kr/news/articleView.html?idxno=254257" target="_blank" rel="noopener">베일 벗은 컴투스홀딩스 '스타 세일러'…"확률 대신 전략" 차별화 승부</a></div>
+          <div class="src-line"><span>아시아에이 · 2026-07-04</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">그룹사 신규 IP 공개, PC 빌드 8월 말 오픈 목표. 신규 IP 초기 팬덤 형성 단계부터 브랜딩·굿즈 로드맵 동행 검토.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 컴투스 -->
+    <div class="news-item" data-cat="c2u" data-q="넥슨 스마일게이트 컴투스 인재 육성">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fee2e2;color:#991b1b;">컴투스</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://daily.hankooki.com/news/articleView.html?idxno=1382675" target="_blank" rel="noopener">넥슨·스마일게이트·컴투스, 게임 넘어 인재 키우기 앞장</a></div>
+          <div class="src-line"><span>데일리한국 · 2026-07-04</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">자사 포함 주요 게임사 사회공헌·인재 육성 활동 조명. 브랜드 평판 자산은 IP 브랜딩·파트너십 협상에도 긍정 요인.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 커머스·굿즈 -->
+    <div class="news-item" data-cat="commerce" data-q="엔씨 아스트라에 오라티오 코믹마켓 아트북">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fef3c7;color:#92400e;">커머스·굿즈</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.dailian.co.kr/news/view/1663256/%EC%97%94%EC%94%A8-%EC%95%84%EC%8A%A4%ED%8A%B8%EB%9D%BC-%EC%98%A4%EB%9D%BC%ED%8B%B0%EC%98%A4-%E6%97%A5-%EC%BD%94%EB%AF%B9%EB%A7%88%EC%BC%93-2026" target="_blank" rel="noopener">엔씨 '아스트라에 오라티오', 日 코믹마켓 참가…공식 아트북 첫 공개</a></div>
+          <div class="src-line"><span>데일리안 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">엔씨가 일본 최대 동인 행사에서 공식 아트북 MD 첫 공개. 서브컬처 성지 이벤트 + 한정 굿즈 결합 모델, 일본 시장 진출 벤치마크.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 커머스·굿즈 -->
+    <div class="news-item" data-cat="commerce" data-q="라이엇게임즈 리프트바운드 T1 컬렉션">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#fef3c7;color:#92400e;">커머스·굿즈</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.gamechosun.co.kr/webzine/article/view.php?no=223192&from=top" target="_blank" rel="noopener">라이엇게임즈 리프트바운드, 2025 월드 챔피언십 우승팀 T1 컬렉션 전격 공개</a></div>
+          <div class="src-line"><span>게임조선 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">e스포츠 우승팀 IP를 상품 컬렉션으로 전환. SWC 등 자사 e스포츠 자산의 기념 컬렉션·한정 MD 사업화 직접 참고 케이스.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 팝업·오프라인 -->
+    <div class="news-item" data-cat="popup" data-q="스마일게이트 애니메 엑스포 부스">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#dcfce7;color:#166534;">팝업·오프라인</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.ajunews.com/view/20260703091225637" target="_blank" rel="noopener">스마일게이트, 북미 최대 '애니메 엑스포' 참가…'미래시'·'카제나' 부스 운영</a></div>
+          <div class="src-line"><span>아주경제 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">북미 최대 서브컬처 행사 부스 운영. 6개국 팝업 운영 경험과 연결되는 글로벌 오프라인 팬 접점 확장 사례, 북미 행사 파트너십 검토 참고.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 팝업·오프라인 -->
+    <div class="news-item" data-cat="popup" data-q="에픽세븐 카오스 제로 나이트메어 팝업 스토어 마리오아울렛">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#dcfce7;color:#166534;">팝업·오프라인</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://bbs.ruliweb.com/news/read/226317" target="_blank" rel="noopener">에픽세븐·카오스 제로 나이트메어, 팝업 스토어 현장</a></div>
+          <div class="src-line"><span>루리웹 · 2026-06-26</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">마리오아울렛 MGM IP UNIVERSE 내 팝업, 아트북·디오라마·키링 등 굿즈 판매. 아울렛·복합몰 상설형 IP 존 입점 채널 모델 주목.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 경쟁사 -->
+    <div class="news-item" data-cat="competitor" data-q="넷마블 아스달 연대기 뉴월드 서버">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://game.donga.com/123246/" target="_blank" rel="noopener">넷마블 '아스달 연대기', 유료 뽑기 4종 없는 '뉴월드' 서버 사전 등록 실시</a></div>
+          <div class="src-line"><span>게임동아 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">드라마 원작 IP 게임의 BM 실험. 확률형 제외 서버로 이용자 신뢰 확보 시도, IP 장기 운영 관점 참고.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 경쟁사 -->
+    <div class="news-item" data-cat="competitor" data-q="시프트업 니케 여름 업데이트 매출 1위">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://zdnet.co.kr/view/?no=20260703151916" target="_blank" rel="noopener">시프트업 '니케', 여름 업데이트로 국내 앱스토어 매출 1위 탈환</a></div>
+          <div class="src-line"><span>지디넷코리아 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">시즌 업데이트로 매출 순위 탈환. 성수기 시즌 콘텐츠와 굿즈·이벤트 연계 타이밍 전략 참고.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 경쟁사 -->
+    <div class="news-item" data-cat="competitor" data-q="넷마블 정보보호 283억 투자">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#ede9fe;color:#5b21b6;">경쟁사</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.gamemeca.com/view.php?gid=1777421" target="_blank" rel="noopener">넷마블 '정보보호'에 283억 원 규모 예산 투입한다</a></div>
+          <div class="src-line"><span>게임메카 · 2026-07-05</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">대형사 정보보호 투자 확대 공시. 글로벌 커머스·회원 데이터 운영 시 보안 투자 수준의 업계 기준점 참고.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 산업·정책 -->
+    <div class="news-item" data-cat="industry" data-q="소니 디스크리스 플레이스테이션 게임 소유">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://www.newsis.com/view/NISX20260703_0003695329" target="_blank" rel="noopener">CD 없는 플스 소니의 승부수…게임 소유 시대 막 내린다</a></div>
+          <div class="src-line"><span>뉴시스 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">디스크리스 전환으로 디지털 유통 중심 재편. 소유에서 접속으로의 전환은 실물 굿즈·컬렉터블의 희소가치를 오히려 높이는 역설적 기회.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 산업·정책 -->
+    <div class="news-item" data-cat="industry" data-q="한국모바일게임협회 AMPLIFY 2026 AI">
+      <div style="display:flex;gap:10px;">
+        <span class="cat-chip" style="background:#dbeafe;color:#1e40af;">산업·정책</span>
+        <div style="flex:1;">
+          <div class="news-title"><a href="https://gamefocus.co.kr/detail.php?number=177218" target="_blank" rel="noopener">한국모바일게임협회, 국산 게임 AI 솔루션 확산 위해 'AMPLIFY 2026' 개최</a></div>
+          <div class="src-line"><span>게임포커스 · 2026-07-03</span><a class="naver-backup" target="_blank" rel="noopener" href="#">🔍 네이버</a></div>
+          <div style="font-size:11.5px;color:#475569;margin-top:5px;line-height:1.5;">업계 AI 솔루션 확산 행사. IP 굿즈 디자인·마케팅 소재 제작 AI 워크플로 고도화에 활용 가능한 솔루션 탐색 기회.</div>
+        </div>
+      </div>
     </div>
 
   </div><!-- news-list end -->
 </main>
 
+<!-- 사이드바 -->
 <aside style="padding:clamp(10px,2%,14px) clamp(10px,2%,14px) clamp(10px,2%,14px) 0;display:flex;flex-direction:column;gap:12px;">
 
+  <!-- 핵심 키워드 -->
   <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">
     <div style="padding:10px 14px 8px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:700;color:#374151;">🔑 핵심 키워드</div>
     <div style="padding:10px 14px 12px;display:flex;flex-wrap:wrap;gap:5px;">
-      <span style="background:#fee2e2;color:#991b1b;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">서머너즈워×프리렌</span>
-      <span style="background:#fee2e2;color:#991b1b;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">제우스7/1사전예약</span>
-      <span style="background:#fef3c7;color:#92400e;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">블루아카이브공예</span>
-      <span style="background:#fef3c7;color:#92400e;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">엠버앤블레이드GPU</span>
-      <span style="background:#ede9fe;color:#5b21b6;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">쿠키런킹덤태국1위</span>
-      <span style="background:#dbeafe;color:#1e40af;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">게임스컴2026</span>
-      <span style="background:#ede9fe;color:#5b21b6;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">ESG보고서</span>
-      <span style="background:#dbeafe;color:#1e40af;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">하반기MMORPG</span>
+      <span style="background:#fee2e2;color:#991b1b;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">서머너즈워협업</span>
+      <span style="background:#fee2e2;color:#991b1b;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">프리렌컬래버</span>
+      <span style="background:#fef3c7;color:#92400e;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">코믹마켓아트북</span>
+      <span style="background:#fef3c7;color:#92400e;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">T1컬렉션</span>
+      <span style="background:#dcfce7;color:#166534;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">애니메엑스포</span>
+      <span style="background:#dcfce7;color:#166534;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">복합몰IP존</span>
+      <span style="background:#dbeafe;color:#1e40af;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">디스크리스</span>
+      <span style="background:#f1f5f9;color:#475569;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">야구게임1조</span>
     </div>
   </div>
 
+  <!-- IP팀 시사점 -->
   <div style="background:linear-gradient(135deg,#1e293b,#0f172a);color:#fff;border-radius:12px;padding:12px 14px;">
     <div style="font-size:12px;font-weight:700;margin-bottom:8px;opacity:.9;">💡 IP팀 시사점</div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🔴 <strong>서머너즈워×프리렌 + 제우스 사전예약(7/1)</strong>, 자사 IP 협업·신작 파이프라인 동시 가동</div>
-      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🟡 <strong>IP 콜라보 굿즈·제품 확산</strong>(블루아카이브 공예·엠버앤블레이드 GPU), IP×리테일/하드웨어 커머스 벤치마크</div>
-      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🟢 <strong>게임사 ESG·개발자 행사 활발</strong>, 산업 신뢰·인재 동향</div>
-      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🔵 <strong>게임스컴 2026(8월)</strong>, 해외 IP·커머스 진출 거점 모니터링</div>
+      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🔴 <strong>프리렌 컬래버 기간(~8/31)</strong>, 인게임 콜라보를 굿즈·프로모션 커머스로 연결하는 크로스 기획 적기</div>
+      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🟡 <strong>엔씨 코믹마켓·라이엇 T1 컬렉션</strong>, 행사 한정 MD와 e스포츠 우승 컬렉션 모델을 SWC·글로벌 행사 자산에 적용 검토</div>
+      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🟢 <strong>마리오아울렛 상설형 IP 존</strong>, 스마일게이트 팝업 사례처럼 복합몰·아울렛 상설 채널 입점 옵션 점검</div>
+      <div style="font-size:11px;line-height:1.5;opacity:.85;padding:7px 10px;background:rgba(255,255,255,.07);border-radius:7px;">🔵 <strong>소니 디스크리스·게임 소유 논쟁</strong>, 디지털 전환 속 실물 컬렉터블 희소가치 상승, 글로벌 커머스 약관도 병행 점검</div>
     </div>
   </div>
 
+  <!-- 시장 지표 -->
   <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;">
     <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:8px;">📈 시장 지표</div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;"><span style="color:#64748b;">제우스: 오만의 신 사전예약</span><span style="font-weight:700;color:#dc2626;">7/1</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;"><span style="color:#64748b;">쿠키런킹덤 태국 애플</span><span style="font-weight:700;color:#0f172a;">매출 1위</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;"><span style="color:#64748b;">게임스컴 2026</span><span style="font-weight:700;color:#0f172a;">8월(독일)</span></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;"><span style="color:#64748b;">자사(컴투스) 뉴스</span><span style="font-weight:700;color:#0f172a;">2건</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;">
+        <span style="color:#64748b;">컴투스 야구 게임 누적 매출</span><span style="font-weight:700;color:#0f172a;">1조원</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;">
+        <span style="color:#64748b;">프리렌 컬래버 이벤트</span><span style="font-weight:700;color:#dc2626;">8/31까지</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;">
+        <span style="color:#64748b;">니케 국내 앱스토어</span><span style="font-weight:700;color:#0f172a;">매출 1위 탈환</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.5px;">
+        <span style="color:#64748b;">넷마블 정보보호 예산</span><span style="font-weight:700;color:#0f172a;">283억원</span>
+      </div>
     </div>
   </div>
 
+  <!-- 주목 이벤트 -->
   <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;">
     <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:8px;">🗓️ 주목 이벤트</div>
     <div style="display:flex;flex-direction:column;gap:7px;">
-      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #e60012;"><div style="font-weight:700;color:#0f172a;">7/1</div><div style="color:#475569;margin-top:1px;">컴투스 '제우스: 오만의 신' 사전예약 시작</div></div>
-      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #f59e0b;"><div style="font-weight:700;color:#0f172a;">진행중</div><div style="color:#475569;margin-top:1px;">넥슨 NYPC 온라인 예선 (6/29~)</div></div>
-      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #8b5cf6;"><div style="font-weight:700;color:#0f172a;">8월</div><div style="color:#475569;margin-top:1px;">게임스컴 2026 (독일)</div></div>
-      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #0284c7;"><div style="font-weight:700;color:#0f172a;">모니터링</div><div style="color:#475569;margin-top:1px;">게임텔 무등록 단속(문체부·게임위)</div></div>
+      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #e60012;">
+        <div style="font-weight:700;color:#0f172a;">진행중 · ~8/31</div>
+        <div style="color:#475569;margin-top:1px;">서머너즈 워 × 장송의 프리렌 컬래버</div>
+      </div>
+      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #16a34a;">
+        <div style="font-weight:700;color:#0f172a;">진행중</div>
+        <div style="color:#475569;margin-top:1px;">스마일게이트 팝업 (마리오아울렛 MGM IP UNIVERSE)</div>
+      </div>
+      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #f59e0b;">
+        <div style="font-weight:700;color:#0f172a;">7월 초</div>
+        <div style="color:#475569;margin-top:1px;">애니메 엑스포(LA), 국내 게임사 부스 참가</div>
+      </div>
+      <div style="font-size:11px;padding:6px 9px;background:#f8fafc;border-radius:7px;border-left:3px solid #8b5cf6;">
+        <div style="font-weight:700;color:#0f172a;">8월 말</div>
+        <div style="color:#475569;margin-top:1px;">컴투스홀딩스 '스타 세일러' PC 빌드 오픈 목표</div>
+      </div>
     </div>
   </div>
 
@@ -261,11 +395,15 @@
 
 </div>
 <script>
+// 네이버 뉴스 백업 검색 링크 생성 (원문 링크 만료 대비)
 document.querySelectorAll('.news-item').forEach(function(item){
   var q = item.getAttribute('data-q') || '';
   var a = item.querySelector('.naver-backup');
-  if (a && q) { a.href = 'https://search.naver.com/search.naver?where=news&query=' + encodeURIComponent(q); }
+  if (a && q) {
+    a.href = 'https://search.naver.com/search.naver?where=news&query=' + encodeURIComponent(q);
+  }
 });
+
 function filterNews(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
@@ -276,8 +414,12 @@ function filterNews(cat, btn) {
   try { localStorage.setItem('ip-trend-filter', cat); } catch(e) {}
 }
 (function(){
-  try { var saved = localStorage.getItem('ip-trend-filter');
-    if (saved && saved !== 'all') { var btn = document.querySelector('.filter-btn[onclick*="' + saved + '"]'); if (btn) filterNews(saved, btn); }
+  try {
+    var saved = localStorage.getItem('ip-trend-filter');
+    if (saved && saved !== 'all') {
+      var btn = document.querySelector('.filter-btn[onclick*="' + saved + '"]');
+      if (btn) filterNews(saved, btn);
+    }
   } catch(e) {}
 })();
 </script>
