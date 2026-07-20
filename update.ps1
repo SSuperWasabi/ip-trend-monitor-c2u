@@ -72,6 +72,12 @@ try {
     Write-Host "   라이브   : $liveUrl" -ForegroundColor Cyan
     Write-Host "   Actions  : https://github.com/SSuperWasabi/ip-trend-monitor-c2u/actions" -ForegroundColor Cyan
 
+    # ---- 2.5) 배포 반영 감시(백그라운드): 30분 내 라이브 미반영 시 Windows 알림 ----
+    Start-Process -FilePath (Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe') `
+        -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$(Join-Path $deployDir 'deploy-verify.ps1')`" -DateTag $dateTag" `
+        -WindowStyle Hidden
+    Write-Host "[감시] 배포 반영 감시 시작(deploy-verify.ps1) — 30분 내 미반영 시 Windows 알림" -ForegroundColor Gray
+
     # ---- 3) 메일 초안 ----
     # 수신자: -To > mail-to.txt(줄/쉼표 구분) > 기본 본인
     if (-not $To -or $To.Count -eq 0) {
