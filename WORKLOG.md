@@ -38,7 +38,7 @@
 14. **시간 기준 → 파일 감시 전환**: 트리거를 매일 09:30 스케줄러에서 **`watch.ps1`(FileSystemWatcher)** 로 변경. (작업 스케줄러 AtLogon 트리거는 이 PC 정책상 권한 거부 → **시작프로그램(Startup) 바로가기**로 상주. 프로세스 종료는 taskkill/Stop-Process가 훅에 막혀 **CIM Terminate**로 교체.)
 15. **감시 경로 정정(중요)**: 처음엔 watcher가 '배포 폴더'를 감시했으나, Cowork의 실제 배포용 저장 지정 경로는 **소스 `C:\Users\jasonbae\Downloads\NAVER WORKS\ip-trend-monitor\index.html`** 임이 확인됨 → watcher가 **소스 경로 단일 감시**하도록 수정. 소스에 저장하면 watcher가 소스→배포폴더 복사 후 배포.
 16. **6/30 사이클 + 버그 수정**: 6/30 갱신본을 watcher가 감지했으나 `update.ps1`이 `git add`에서 **git의 LF→CRLF 경고를 치명 오류로 처리**(`$ErrorActionPreference='Stop'` + 네이티브 stderr)해 커밋 전에 중단됨. → `Stop`→`Continue` + `core.autocrlf false` 로 수정. 6/30 커밋·푸시 완료(`79da1f8`).
-17. **7/20 배포 지연 이슈 → 배포 감시 알림 추가**: 7/20 push는 정상이었으나 GitHub Actions 장애로 Pages 배포가 ~1시간 큐 대기(로컬 파이프라인 무결 확인). 재발 대비로 `deploy-verify.ps1` 신설 — update.ps1이 push 직후 백그라운드로 실행, 라이브 URL을 2분 간격 폴링해 30분 내 새 날짜(`업데이트: <DateTag>`) 미반영 시 **Windows 토스트 알림**(라이브/Actions 버튼, 실패 시 팝업 대체). 성공/실패 경로 실테스트 완료.
+17. **7/20 배포 지연 이슈 → 배포 감시 알림 추가**: 7/20 push는 정상이었으나 GitHub Actions 장애로 Pages 배포가 ~1시간 큐 대기(로컬 파이프라인 무결 확인). 재발 대비로 `deploy-verify.ps1` 신설 — update.ps1이 push 직후 백그라운드로 실행, 라이브 URL을 10분 간격 폴링해 30분 내 새 날짜(`업데이트: <DateTag>`) 미반영 시 **Windows 토스트 알림**(라이브/Actions 버튼, 실패 시 팝업 대체). 성공/실패 경로 실테스트 완료.
 18. **Netlify 배포 차단 발생(테스트 부작용)**: 트리거 검증 중 짧은 시간에 배포를 ~25회 폭주 → Netlify가 **모든 배포를 `Forbidden`/실패로 거부**(CI 직접배포·MCP 빌드배포 양쪽). Free 플랜 일일 횟수 제한이 아니라 **단기 레이트/남용 차단**(직접배포까지 막힌 게 빌드시간 소진이 아님을 시사). 보통 24h 내·월 리셋(7/1)에 자동 해제. → 6/30 내용은 GitHub엔 있으나 라이브 반영은 차단 해제 후 가능.
 
 ## 4. 최종 산출물 (2026-07-02: Netlify → GitHub Pages 이전)

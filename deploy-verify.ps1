@@ -14,7 +14,7 @@ param(
     [Parameter(Mandatory)][string]$DateTag,
     [string]$LiveUrl = 'https://ssuperwasabi.github.io/ip-trend-monitor-c2u/',
     [int]$TimeoutMin = 30,
-    [int]$PollSec    = 120
+    [int]$PollSec    = 600
 )
 $ErrorActionPreference = 'Continue'
 $deployDir  = $PSScriptRoot
